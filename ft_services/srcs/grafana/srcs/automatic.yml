@@ -1,0 +1,87 @@
+apiVersion: 1
+
+datasources:
+  - name: Influxdb
+    type: influxdb
+    access: proxy
+    url: http://my-influxdb:8086
+    password: admin
+    user: admin
+    database: influxflux
+    jsonData:
+       tlsAuth: false
+       tlsAuthWithCACert: false
+    version: 1
+    editable: true
+  - name: Ftps
+    type: influxdb
+    access: proxy
+    url: http://my-influxdb:8086
+    password: admin
+    user: admin
+    database: ftpsflux
+    jsonData:
+       tlsAuth: false
+       tlsAuthWithCACert: false
+    version: 1
+    editable: true
+  - name: Nginx
+    type: influxdb
+    access: proxy
+    url: http://my-influxdb:8086
+    password: admin
+    user: admin
+    database: nginxflux
+    jsonData:
+       tlsAuth: false
+       tlsAuthWithCACert: false
+    version: 1
+    editable: true
+  - name: Grafana
+    type: influxdb
+    access: proxy
+    url: http://my-influxdb:8086
+    password: admin
+    user: admin
+    database: grafanaflux
+    jsonData:
+       tlsAuth: false
+       tlsAuthWithCACert: false
+    version: 1
+    editable: true
+  - name: Wordpress
+    type: influxdb
+    access: proxy
+    url: http://my-influxdb:8086
+    password: admin
+    user: admin
+    database: wpflux
+    jsonData:
+       tlsAuth: false
+       tlsAuthWithCACert: false
+    version: 1
+    editable: true
+  - name: PhpMyAdmin
+    type: influxdb
+    access: proxy
+    url: http://my-influxdb:8086
+    password: admin
+    user: admin
+    database: phpmaflux
+    jsonData:
+       tlsAuth: false
+       tlsAuthWithCACert: false
+    version: 1
+    editable: true 
+  - name: Mysql
+    type: influxdb
+    access: proxy
+    url: http://my-influxdb:8086
+    password: admin
+    user: admin
+    database: mysqlflux
+    jsonData:
+       tlsAuth: false
+       tlsAuthWithCACert: false
+    version: 1
+    editable: true 

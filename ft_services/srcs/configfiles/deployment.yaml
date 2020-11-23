@@ -1,0 +1,242 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: my-nginx
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: my-nginx
+  template:
+    metadata:
+      labels:
+        app: my-nginx
+    spec:
+      containers:
+      - name: ftnginx
+        image: ftnginx
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        imagePullPolicy: Never
+        env:
+        - name: SSH_USER
+          value: admin
+        - name: SSH_PASSWORD
+          value: admin
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ftps-deployment
+  labels:
+    app: my-ftps
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: my-ftps
+  template:
+    metadata:
+      labels:
+        app: my-ftps
+    spec:
+      containers:
+      - name: ftftps
+        image: ftftps
+        ports:
+        - name: ftps0
+          containerPort: 21
+        - name: ftps1
+          containerPort: 21000
+        - name: ftps2
+          containerPort: 21001
+        - name: ftps3
+          containerPort: 21002
+        - name: ftps4
+          containerPort: 21003
+        - name: ftps5
+          containerPort: 21004
+        imagePullPolicy: Never
+        env:
+        - name: SSH_USER
+          value: admin
+        - name: SSH_PASSWORD
+          value: admin
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-deployment
+  labels:
+    app: my-grafana
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: my-grafana
+  template:
+    metadata:
+      labels:
+        app: my-grafana
+    spec:
+      containers:
+      - name: ftgrafana
+        image: ftgrafana
+        ports:
+        - name: http
+          containerPort: 3000
+        imagePullPolicy: Never
+        env:
+        - name: SSH_USER
+          value: admin
+        - name: SSH_PASSWORD
+          value: admin
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb-deployment
+  labels:
+    app: my-influxdb
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: my-influxdb
+  template:
+    metadata:
+      labels:
+        app: my-influxdb
+    spec:
+      containers:
+      - name: ftinfluxdb
+        image: ftinfluxdb
+        ports:
+        - name: data
+          containerPort: 8086
+        imagePullPolicy: Never
+        env:
+        - name: SSH_USER
+          value: admin
+        - name: SSH_PASSWORD
+          value: admin
+        volumeMounts:
+        - name: influxdb-persistent-storage
+          mountPath: /var/lib/influxdb
+      volumes:
+      - name: influxdb-persistent-storage
+        persistentVolumeClaim:
+          claimName: influx-db-claim
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: my-mysql
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: my-mysql
+  template:
+    metadata:
+      labels:
+        app: my-mysql
+    spec:
+      containers:
+      - name: ftmysql
+        image: ftmysql
+        ports:
+        - name: data
+          containerPort: 3306
+        imagePullPolicy: Never
+        env:
+        - name: SSH_USER
+          value: admin
+        - name: SSH_PASSWORD
+          value: admin
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin-deployment
+  labels:
+    app: my-phpmyadmin
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: my-phpmyadmin
+  template:
+    metadata:
+      labels:
+        app: my-phpmyadmin
+    spec:
+      containers:
+      - name: ftphpmyadmin
+        image: ftphpmyadmin
+        ports:
+        - name: http
+          containerPort: 5000
+        imagePullPolicy: Never
+        env:
+        - name: SSH_USER
+          value: admin
+        - name: SSH_PASSWORD
+          value: admin
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webwp-deployment
+  labels:
+    app: my-webwp
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: my-webwp
+  template:
+    metadata:
+      labels:
+        app: my-webwp
+    spec:
+      containers:
+      - name: ftwebwp
+        image: ftwebwp
+        ports:
+        - name: https
+          containerPort: 5050
+        imagePullPolicy: Never
+        env:
+        - name: SSH_USER
+          value: admin
+        - name: SSH_PASSWORD
+          value: admin
