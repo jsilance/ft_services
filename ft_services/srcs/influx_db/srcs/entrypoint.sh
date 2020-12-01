@@ -1,4 +1,2 @@
-telegraf&
-influx -execute "create user admin with password 'admin'"
-influxd -config /etc/influxdb.conf
-influxd
+telegraf &
+influxd run -config /etc/influxdb.conf

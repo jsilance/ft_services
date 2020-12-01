@@ -18,3 +18,5 @@ cd ./srcs/ && sh docker_builder.sh
 kubectl apply -f ./configfiles/service-config.yaml
 kubectl apply -f ./configfiles/volume-config.yaml
 kubectl apply -f ./configfiles/deployment.yaml
+sleep 10
+kubectl exec -i `kubectl get pods | grep -o "mysql\S*"` -- mysql -u root < ./mysql/srcs/wordpress.sql

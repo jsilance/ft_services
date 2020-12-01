@@ -2,6 +2,8 @@ FROM alpine:latest
 
 EXPOSE 8086
 
+# VOLUME [ "/var/lib/influxdb" ]
+
 RUN apk update && apk upgrade && apk add influxdb
 
 RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
